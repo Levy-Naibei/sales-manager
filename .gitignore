@@ -3,7 +3,7 @@ mediafiles
 .vscode
 .idea
 
-*/migrations/*
+**/migrations/**
 
 ### OSX ###
 .DS_Store
