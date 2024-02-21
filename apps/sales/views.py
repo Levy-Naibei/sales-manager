@@ -1,14 +1,15 @@
 from django.contrib.auth import get_user_model
 from rest_framework import generics, status
+# from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Customer, Order
 from .serializers import CustomerSerializer, OrderSerializer
-from .exceptions import UserNotFound
 
 User = get_user_model()
 
 class CustomerCreateAPIView(generics.CreateAPIView):
     serializer_class = CustomerSerializer
+    # permission_classes= [IsAuthenticated]
 
     def post(self, request):
         data = request.data
@@ -33,6 +34,7 @@ class OrderListAPIView(generics.ListAPIView):
 
 class OrderCreateAPIView(generics.CreateAPIView):
     serializer_class = OrderSerializer
+    # permission_classes= [IsAuthenticated]
 
     def post(self, request):
         data = request.data
@@ -42,3 +44,4 @@ class OrderCreateAPIView(generics.CreateAPIView):
         return Response(
             {"message": "Order successfully created"}, status=status.HTTP_201_CREATED
         )
+    

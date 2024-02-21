@@ -1,7 +1,6 @@
 import random
 import string
 
-from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -9,15 +8,13 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 from apps.common.models import TimeStampedUUIDModel
 
-User = get_user_model()
-
 
 class Customer(TimeStampedUUIDModel):
-    name = models.ForeignKey(
-        User,
+    name = models.CharField(
         verbose_name=_("Customer Name"),
-        related_name="customer",
-        on_delete=models.CASCADE,
+        max_length=150,
+        null=False,
+        blank=False,
     )
     code = models.CharField(
         verbose_name=_("Customer Code"),
@@ -30,7 +27,7 @@ class Customer(TimeStampedUUIDModel):
     )
     
     def __str__(self):
-        return f"{self.name.first_name.title()} {self.name.last_name.title()}"
+        return self.name.title()
 
     # generate random code on model instance save
     def save(self, *args, **kwargs):

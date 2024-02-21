@@ -14,9 +14,7 @@ sms = africastalking.SMS
 def send_sms_on_order_creation(sender, instance, created, **kwargs):
     if created:
         customer_phone_number = f"{instance.customer.phone_number}"
-        first_name = instance.customer.name.first_name.title()
-        last_name = instance.customer.name.last_name.title()
-        customer_name = f"{first_name} {last_name}"
+        customer_name = f"{instance.customer.name.title()}"
         price = f"{instance.amount}"
         product = instance.item
         message = f"Dear {customer_name}, your order for {product} costing KES {price}" \
