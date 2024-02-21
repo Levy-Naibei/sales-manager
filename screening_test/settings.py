@@ -21,7 +21,7 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(" ")
 
 # Application definition
 
-DJANGO_APPS = [
+INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -29,18 +29,27 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+
+    # 3rd party apps
+    "phonenumber_field",
+    "mozilla_django_oidc",
+    "rest_framework",
+
+    # local apps
+    "apps.users", 
+    "apps.sales"
 ]
 
 SITE_ID = 1
 
-THIRD_PARTY_APPS = [
-    "rest_framework",
-    "phonenumber_field",
-]
+OIDC_DRF_AUTH_BACKEND = 'mozilla_django_oidc.auth.OIDCAuthenticationBackend'
 
-LOCAL_APPS = ["apps.users", "apps.sales"]
-
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'mozilla_django_oidc.contrib.drf.OIDCAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -126,6 +135,7 @@ USE_TZ = True
 STATIC_URL = "/staticfiles/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIR = []
+
 MEDIA_URL = "/mediafiles/"
 MEDIA_ROOT = BASE_DIR / "mediafiles"
 
@@ -134,4 +144,16 @@ MEDIA_ROOT = BASE_DIR / "mediafiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "users.User"
+# AUTH_USER_MODEL = 'users.CustomUser'
+
+# Okta OIDC provider settings
+ORG_URL = env("ORG_URL")
+OIDC_RP_CLIENT_ID = env("OKTA_CLIENT_ID")
+OIDC_RP_CLIENT_SECRET = env("OKTA_CLIENT_SECRET")
+OIDC_RP_SCOPES = "openid"
+OIDC_AUTHENTICATION_CALLBACK_URL = env("OKTA_REDIRECT_URI")
+OIDC_RP_SIGN_ALGO = env("OIDC_RP_SIGN_ALGO")
+OIDC_OP_AUTHORIZATION_ENDPOINT = env("OIDC_OP_AUTHORIZATION_ENDPOINT")
+OIDC_OP_TOKEN_ENDPOINT = env("OIDC_OP_TOKEN_ENDPOINT")
+OIDC_OP_USER_ENDPOINT = env("OIDC_OP_USER_ENDPOINT")
+OIDC_OP_JWKS_ENDPOINT = env("OIDC_OP_JWKS_ENDPOINT")
