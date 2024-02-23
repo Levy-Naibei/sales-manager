@@ -7,7 +7,7 @@ build_files.sh
 
 # **/migrations/**
 
-# .github/
+.github/
 
 ### OSX ###
 .DS_Store
