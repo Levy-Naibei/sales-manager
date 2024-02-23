@@ -5,6 +5,8 @@ mediafiles
 
 **/migrations/**
 
+.github/
+
 ### OSX ###
 .DS_Store
 .AppleDouble

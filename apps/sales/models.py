@@ -25,6 +25,7 @@ class Customer(TimeStampedUUIDModel):
     phone_number = PhoneNumberField(
         verbose_name=_("Phone Number"), max_length=30, default="+254710311897"
     )
+    email = models.CharField(max_length=254)
     
     def __str__(self):
         return self.name.title()

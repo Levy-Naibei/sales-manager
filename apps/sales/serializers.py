@@ -8,12 +8,10 @@ class CustomerSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class OrderSerializer(serializers.ModelSerializer):
-    customer = serializers.SerializerMethodField()
+    customer = serializers.CharField(source="customer.name", read_only=True)
 
     class Meta:
         model = Order
         fields = "__all__"
     
-    def get_customer(self, obj):
-        return obj.customer.name
     

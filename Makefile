@@ -38,3 +38,17 @@ volume:
 savanah-db:
 	docker compose exec postgres-db psql --username=${POSTGRES_USER} --dbname=${POSTGRES_DB}
 
+test:
+	docker compose exec api python3 manage.py test
+
+test-coverage:
+	docker compose exec api coverage run manage.py test
+
+test-report:
+	docker compose exec api coverage report
+
+test-html:
+	docker compose exec api coverage html
+
+
+
