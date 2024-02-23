@@ -3,7 +3,7 @@ mediafiles
 .vscode
 .idea
 
-**/migrations/**
+# **/migrations/**
 
 .github/
 
