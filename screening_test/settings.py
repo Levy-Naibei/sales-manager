@@ -1,3 +1,4 @@
+import os
 import environ
 from pathlib import Path
 
@@ -135,6 +136,9 @@ USE_TZ = True
 STATIC_URL = "/staticfiles/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIR = []
+
+# STATICFILES_DIRS = [BASE_DIR/'static',]
+# STATIC_ROOT = BASE_DIR/'staticfiles'
 
 MEDIA_URL = "/mediafiles/"
 MEDIA_ROOT = BASE_DIR / "mediafiles"
